@@ -1,13 +1,11 @@
 package contacts;
 
-import lombok.Data;
 import lombok.ToString;
 
-@Data
 @ToString(callSuper = true)
 public class BusinessContact extends Contact {
 
-    private String companyName;
+    private final String companyName;
 
 
     public BusinessContact(String name, String companyName) {

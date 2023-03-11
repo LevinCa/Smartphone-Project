@@ -6,7 +6,7 @@ import lombok.*;
 @ToString(callSuper = true)
 public class Friend extends Contact{
 
-    private String phoneNumber;
+    private final String phoneNumber;
 
 
     public Friend(String name, String phoneNumber) {
