@@ -6,12 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class Smartphone implements Radio, GPS {
 
@@ -19,6 +21,11 @@ public class Smartphone implements Radio, GPS {
     private String manufacturer;
     List<Contact> contacts;
 
+    public Smartphone(String model, String manufacturer, List<Contact> contacts) {
+        this.model = model;
+        this.manufacturer = manufacturer;
+        this.contacts = contacts.stream().filter(Objects::nonNull).collect(Collectors.toList());
+    }
 
     public void addContact(Contact contact) {
         if (contact != null) {

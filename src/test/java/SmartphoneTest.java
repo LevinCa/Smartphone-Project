@@ -32,24 +32,25 @@ class SmartphoneTest {
             contactBusinessOne = new BusinessContact("Cara", "Mobis");
             contactBusinessTwo = new BusinessContact("Romina", "Eventim");
             contactNull = null;
-            List<Contact> contactList = new ArrayList<>();
+            List<Contact> contactList = Stream.of(
+                    contactFriendOne,
+                    contactFriendTwo,
+                    contactNull,
+                    contactBusinessOne
+            ).toList();
             smartphone = new Smartphone("IPhone", "Apple", contactList);
-
-            smartphone.addContact(contactFriendOne);
-            smartphone.addContact(contactBusinessOne);
-            smartphone.addContact(contactNull);
-            smartphone.addContact(contactFriendTwo);
-            smartphone.addContact(contactBusinessTwo);
-
         }
+
+
 
         @Test
         void addContact() {
             contactMethodsSetup();
+            smartphone.addContact(contactBusinessTwo);
             thenList(smartphone.getContacts())
                     .contains(contactBusinessOne,contactBusinessTwo,contactFriendOne,contactFriendTwo)
                     .doesNotContain(contactNull)
-                    .isExactlyInstanceOf(ArrayList.class);
+                    .isInstanceOf(List.class);
         }
 
 
@@ -60,15 +61,13 @@ class SmartphoneTest {
             then(smartphone.getContact(index)).isEqualTo(contact).isNotNull();
         }
 
-        @TestFactory
         private static Stream<Arguments> getContact() {
             contactMethodsSetup();
             System.out.println(contactBusinessOne);
             return Stream.of(
                     Arguments.of(0, contactFriendOne),
-                    Arguments.of(1, contactBusinessOne),
-                    Arguments.of(2, contactFriendTwo),
-                    Arguments.of(3, contactBusinessTwo)
+                    Arguments.of(1, contactFriendTwo),
+                    Arguments.of(2, contactBusinessOne)
             );
         }
 
@@ -101,8 +100,7 @@ class SmartphoneTest {
             return Stream.of(
                     Arguments.of("Daniel", contactFriendOne),
                     Arguments.of("Madlen", contactFriendTwo),
-                    Arguments.of("Cara", contactBusinessOne),
-                    Arguments.of("Romina", contactBusinessTwo)
+                    Arguments.of("Cara", contactBusinessOne)
             );
         }
 
