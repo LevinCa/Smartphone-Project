@@ -1,29 +1,17 @@
 import contacts.Contact;
 import functionality.GPS;
 import functionality.Radio;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Data
-@NoArgsConstructor
-@ToString
+
 public class Smartphone implements Radio, GPS {
 
-    private String model;
-    private String manufacturer;
     List<Contact> contacts;
 
-    public Smartphone(String model, String manufacturer, List<Contact> contacts) {
-        this.model = model;
-        this.manufacturer = manufacturer;
+    public Smartphone(List<Contact> contacts) {
         this.contacts = contacts.stream().filter(Objects::nonNull).collect(Collectors.toList());
     }
 
@@ -54,13 +42,17 @@ public class Smartphone implements Radio, GPS {
 
     @Override
     public boolean startRadio() {
-        System.out.println("functionality.Radio started");
+        System.out.println("Radio started");
         return true;
     }
 
     @Override
     public boolean stopRadio() {
-        System.out.println("functionality.Radio stopped");
+        System.out.println("Radio stopped");
         return false;
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
     }
 }

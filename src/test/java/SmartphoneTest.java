@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -38,7 +39,7 @@ class SmartphoneTest {
                     contactNull,
                     contactBusinessOne
             ).toList();
-            smartphone = new Smartphone("IPhone", "Apple", contactList);
+            smartphone = new Smartphone(contactList);
         }
 
 
@@ -134,17 +135,21 @@ class SmartphoneTest {
     @Nested
     class TestInterfaceMethods {
 
+        Smartphone smartphone = new Smartphone(Collections.emptyList());
 
         @Test
         void getPosition() {
+            assertThat(smartphone.getPosition()).isEqualTo("Köln");
         }
 
         @Test
         void startRadio() {
+            assertThat(smartphone.startRadio()).isTrue();
         }
 
         @Test
         void stopRadio() {
+            assertThat(smartphone.stopRadio()).isFalse();
         }
 
     }

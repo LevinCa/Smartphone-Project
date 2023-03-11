@@ -1,12 +1,9 @@
 package contacts;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-@Data
+@Getter
 @ToString(callSuper = true)
-@NoArgsConstructor
 public class Friend extends Contact{
 
     private String phoneNumber;
