@@ -108,6 +108,24 @@ class SmartphoneTest {
 
         @Test
         void removeContactByName() {
+            contactMethodsSetup();
+            smartphone.removeContactByName(contactBusinessOne.getName());
+
+            then(smartphone.getContacts())
+                    .contains(contactFriendOne, contactFriendTwo)
+                    .doesNotContain(contactBusinessOne,contactBusinessTwo)
+                    .doesNotContainNull()
+                    .isInstanceOf(List.class);
+        }
+
+
+        @Test
+        void removeContactByName_throwsIllegalStateException() {
+            contactMethodsSetup();
+            String nameDoesNotExist = "Car";
+            Throwable throwable = catchThrowable(() -> smartphone.removeContactByName(nameDoesNotExist));
+
+            then(throwable).isInstanceOf(IllegalStateException.class).hasMessageContaining(nameDoesNotExist);
         }
 
 

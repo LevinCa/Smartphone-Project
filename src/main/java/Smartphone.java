@@ -37,12 +37,12 @@ public class Smartphone implements Radio, GPS {
         return this.contacts.get(index);
     }
 
-    public Contact getContactByName(String name) {
+    public Contact getContactByName(String name) throws IllegalStateException {
         return this.contacts.stream().filter(c -> c.getName().equals(name)).findFirst()
                 .orElseThrow(() -> new IllegalStateException("Contact with name \"" + name + "\" not found"));
     }
 
-    public void removeContactByName(String name) {
+    public void removeContactByName(String name) throws IllegalStateException {
         this.contacts.remove(this.getContactByName(name));
     }
 
